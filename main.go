@@ -49,7 +49,6 @@ func main() {
 					products = append(products, t)
 				}
 			}
-			fmt.Println(products)
 		}
 
 		json, err := json.Marshal(products)
