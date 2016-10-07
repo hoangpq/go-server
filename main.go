@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"reflect"
 
+	"github.com/gorilla/mux"
+
 	elastic "gopkg.in/olivere/elastic.v3"
 )
 
@@ -25,8 +27,8 @@ func main() {
 		fmt.Printf("%s", err)
 		panic(err)
 	}
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	r := mux.NewRouter()
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// search
 
 		searchResult, err := client.Search().
@@ -60,5 +62,6 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(json)
 	})
-	http.ListenAndServe(":8080", nil)
+
+	http.ListenAndServe(":8080", r)
 }
