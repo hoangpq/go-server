@@ -13,15 +13,16 @@ import (
 
 // Product is a structure used for serizlizing/deserializing data in ES.
 type Product struct {
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
+	Name       string   `json:"name"`
+	Price      float64  `json:"price"`
+	Categories []string `json:"categories"`
 }
 
 func main() {
 
 	client, err := elastic.NewClient(
 		elastic.SetSniff(false),
-		elastic.SetURL("http://192.168.99.100:9200"),
+		elastic.SetURL("http://localhost:9200"),
 	)
 	if err != nil {
 		fmt.Printf("%s", err)
